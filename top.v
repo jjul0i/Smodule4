@@ -1,14 +1,25 @@
 module top (input mtpx, input mtpy, output mtpz);
-    // use os fios a seguir de acordo com a figura
+
     wire a1, b1, a2, b2, a1b1, a2b2;
-    // Implemente a primeira parte do circuito usando os módulos ma e mb
-    // Preste atenção nas portas desconectadas 
 
+    ma ia1(
+        .mapx(mtpx),
+        .mapy(),
+        .mapz(a1)
+    );
 
+    mb ib1(mtpy, mtpx, b1);
 
+    ma ia2(mtpy, mtpy, a2);
 
-    // Implemente a segunda parte do circuito usando primitivas da linguagem
-    
+    mb ib2(
+        .mbpx(),
+        .mbpy(mtpx),
+        .mbpz(b2)
+    );
 
+    or  (a1b1, a1, b1);
+    and (a2b2, a2, b2);
+    xor (mtpz, a1b1, a2b2);
 
 endmodule
